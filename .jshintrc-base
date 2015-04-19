@@ -1,0 +1,11 @@
+{
+  "bitwise": true,
+  "boss": true,
+  "eqnull": true,
+  "globalstrict": true,
+  "laxbreak": true,
+  "maxlen": 160,
+  "noarg": true,
+  "nonew": true,
+  "undef": true
+}

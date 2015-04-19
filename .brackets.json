@@ -1,0 +1,9 @@
+{
+  "brackets-editorconfig.enabled": true,
+  "language": {
+    "javascript": {
+      "linting.prefer": ["JSHint", "JCCS"],
+      "linting.usePreferredOnly": true
+    }
+  }
+}
