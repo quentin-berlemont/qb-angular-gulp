@@ -77,6 +77,16 @@
   });
 
   /**
+   * Submit code coverage to Coveralls
+   * @returns {stream}
+   */
+  gulp.task('coveralls', 'Submit code coverage to Coveralls', function() {
+    return gulp
+      .src(config.path.coverage + 'report-lcov/lcov.info')
+      .pipe(plug.coveralls());
+  });
+
+  /**
    * Rev and tarball the existing output
    * @returns {stream}
    */
