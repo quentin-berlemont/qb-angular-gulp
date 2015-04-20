@@ -18,7 +18,7 @@
         config: {
           url: '/sandbox',
           templateUrl: 'app/sandbox/sandbox.html',
-          controller: 'SandboxController',
+          controller: 'Sandbox',
           controllerAs: 'vm',
           title: 'Sandbox'
         }

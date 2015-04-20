@@ -3,9 +3,9 @@
 
   angular
     .module('app.sandbox')
-    .controller('SandboxController', SandboxController);
+    .controller('Sandbox', Sandbox);
 
-  function SandboxController() {
+  function Sandbox() {
     var vm = this;
 
     vm.greeting = 'Hello World!';

@@ -43,19 +43,6 @@
   });
 
   /**
-   * Clean the existing output of any previous build
-   */
-  gulp.task('clean', 'Clean the existing output of any previous build', function(callback) {
-    del([config.path.dist, config.path.docs, config.path.coverage], function(err, deletedFiles) {
-      deletedFiles.forEach(function(file) {
-        log('File deleted:', file);
-      });
-
-      callback(err);
-    });
-  });
-
-  /**
    * Generate the API documentation
    * @returns {stream}
    */
@@ -77,22 +64,32 @@
   });
 
   /**
+   * Clean the existing output of any previous build
+   */
+  gulp.task('clean', 'Clean the existing output of any previous build', function(callback) {
+    del([config.path.dist, config.path.docs, config.path.coverage], function(err, deletedFiles) {
+      deletedFiles.forEach(function(file) {
+        log('File deleted:', file);
+      });
+
+      callback(err);
+    });
+  });
+
+  /**
    * Rev and tarball the existing output
    * @returns {stream}
    */
-  gulp.task('rev-tarball', 'Rev and tarball the existing output', ['build'], function() {
+  gulp.task('rev-tarball', 'Rev and tarball the existing output', function() {
     var pakage = require('./package.json');
     var revAll = new plug.revAll({
-      dontRenameFile: [/^\/index.html$/g]
+      dontRenameFile: ['index.html'],
+      dontGlobal: ['.map']
     });
-
-    var revFilter = plug.filter(['index.html', '**/*.{gif,jpg,jpeg,png,svg}', '**/*.min.*', '!**/*.map']);
 
     return gulp
       .src(config.path.dist + '**/*')
-      .pipe(revFilter())
       .pipe(revAll.revision())
-      .pipe(revFilter.restore())
       .pipe(plug.tar(pakage.name + '-' + pakage.version + '.tar'))
       .pipe(plug.gzip())
       .pipe(gulp.dest(config.path.dist));
@@ -203,9 +200,9 @@
       .pipe(plug.autoprefixer())
       .pipe(plug.csscomb())
       .pipe(gulp.dest(config.path.css.dist))
+      .pipe(plug.rename({suffix: '.min'}))
       .pipe(plug.bytediff.start())
       .pipe(plug.minifyCss())
-      .pipe(plug.rename({suffix: '.min'}))
       .pipe(plug.bytediff.stop(bytediffFormatter))
       .pipe(plug.sourcemaps.write('./'))
       .pipe(gulp.dest(config.path.css.dist))
@@ -237,9 +234,9 @@
       .pipe(plug.concat('app.js'))
       .pipe(plug.ngAnnotate())
       .pipe(gulp.dest(config.path.js.dist))
+      .pipe(plug.rename({suffix: '.min'}))
       .pipe(plug.bytediff.start())
       .pipe(plug.uglify())
-      .pipe(plug.rename({suffix: '.min'}))
       .pipe(plug.bytediff.stop(bytediffFormatter))
       .pipe(plug.sourcemaps.write('./'))
       .pipe(gulp.dest(config.path.js.dist))
@@ -275,9 +272,9 @@
         root: 'app/'
       }))
       .pipe(gulp.dest(config.path.js.dist))
+      .pipe(plug.rename({suffix: '.min'}))
       .pipe(plug.bytediff.start())
       .pipe(plug.uglify())
-      .pipe(plug.rename({suffix: '.min'}))
       .pipe(plug.bytediff.stop(bytediffFormatter))
       .pipe(plug.sourcemaps.write('./'))
       .pipe(gulp.dest(config.path.template.dist))
@@ -296,9 +293,9 @@
         .pipe(plug.sourcemaps.init())
         .pipe(plug.concat('vendor.css'))
         .pipe(gulp.dest(config.path.vendor.css.dist))
+        .pipe(plug.rename({suffix: '.min'}))
         .pipe(plug.bytediff.start())
         .pipe(plug.minifyCss())
-        .pipe(plug.rename({suffix: '.min'}))
         .pipe(plug.bytediff.stop(bytediffFormatter))
         .pipe(plug.sourcemaps.write('./'))
         .pipe(gulp.dest(config.path.vendor.css.dist))
@@ -309,9 +306,9 @@
         .pipe(plug.sourcemaps.init())
         .pipe(plug.concat('vendor.js'))
         .pipe(gulp.dest(config.path.vendor.js.dist))
+        .pipe(plug.rename({suffix: '.min'}))
         .pipe(plug.bytediff.start())
         .pipe(plug.uglify())
-        .pipe(plug.rename({suffix: '.min'}))
         .pipe(plug.bytediff.stop(bytediffFormatter))
         .pipe(plug.sourcemaps.write('./'))
         .pipe(gulp.dest(config.path.vendor.js.dist))
