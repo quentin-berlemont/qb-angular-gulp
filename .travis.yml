@@ -4,4 +4,5 @@ node_js:
 before_script:
   - 'npm install -g bower gulp'
   - 'bower install'
-script: "npm run-script ci"
+script:
+  - 'npm run-script ci'
