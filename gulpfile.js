@@ -43,6 +43,19 @@
   });
 
   /**
+   * Clean the existing output of any previous build
+   */
+  gulp.task('clean', 'Clean the existing output of any previous build', function(callback) {
+    del([config.path.dist, config.path.docs, config.path.coverage], function(err, deletedFiles) {
+      deletedFiles.forEach(function(file) {
+        log('File deleted:', file);
+      });
+
+      callback(err);
+    });
+  });
+
+  /**
    * Generate the API documentation
    * @returns {stream}
    */
@@ -61,19 +74,6 @@
           cleverLinks: true,
           monospaceLinks: true
       }));
-  });
-
-  /**
-   * Clean the existing output of any previous build
-   */
-  gulp.task('clean', 'Clean the existing output of any previous build', function(callback) {
-    del([config.path.dist, config.path.docs, config.path.coverage], function(err, deletedFiles) {
-      deletedFiles.forEach(function(file) {
-        log('File deleted:', file);
-      });
-
-      callback(err);
-    });
   });
 
   /**
