@@ -7,6 +7,17 @@
 
   routerHelperProvider.$inject = ['$stateProvider', '$urlRouterProvider'];
 
+  /**
+   * @ngdoc Provider
+   * @memberOf blocks.router
+   * @name routerHelperProvider
+   *
+   * @description
+   * The `routerHelper` provider.
+   *
+   * @param {object} $stateProvider - The ui-router `$state` provider
+   * @param {object} $urlRouterProvider - The ui-router `$urlRouter` provider
+   */
   function routerHelperProvider($stateProvider, $urlRouterProvider) {
     /* jshint validthis:true */
     var _config = {
@@ -14,6 +25,16 @@
       resolveAlways: {}
     };
 
+    /**
+     * @method
+     * @memberOf blocks.router.routerHelperProvider
+     * @name configure
+     *
+     * @description
+     * Configure the `routerHelper` service.
+     *
+     * @param {object} config - The configuration object
+     */
     this.configure = function(config) {
       angular.extend(_config, config);
     };
@@ -22,6 +43,19 @@
 
     routerHelper.$inject = ['$rootScope', '$state', '$location', 'logger'];
 
+    /**
+     * @ngdoc Service
+     * @memberOf blocks.router
+     * @name routerHelper
+     *
+     * @description
+     * The `routerHelper` service.
+     *
+     * @param {object} $rootScope - The angular `$rootScope` service
+     * @param {object} $state - The angular `$state` service
+     * @param {object} $location - The angular `$location` service
+     * @param {object} logger - {@link blocks.logger.logger The `logger` service}
+     */
     function routerHelper($rootScope, $state, $location, logger) {
       var _handlingStateChangeError = false;
       var _hasOtherwise = false;
@@ -31,18 +65,18 @@
         getStates: getStates
       };
 
-      init();
+      _init();
 
       return service;
 
       ////////////////
 
-      function init() {
-        updateDocTitle();
-        handleStateChangeError();
+      function _init() {
+        _updateDocTitle();
+        _handleStateChangeError();
       }
 
-      function updateDocTitle() {
+      function _updateDocTitle() {
         $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
           _handlingStateChangeError = false;
           var title = _config.docTitle + (toState.title || '');
@@ -50,7 +84,12 @@
         });
       }
 
-      function handleStateChangeError() {
+      function _handleStateChangeError() {
+        /**
+         * Route cancellation:
+         * On routing error, go to '/'.
+         * Provide an exit clause if it tries to do it twice.
+         */
         $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
           if (!_handlingStateChangeError) {
             _handlingStateChangeError = true;
@@ -67,6 +106,18 @@
         });
       }
 
+      /**
+       * @method
+       * @memberOf blocks.router.routerHelper
+       * @name addStates
+       *
+       * @description
+       * Add states to the router.
+       *
+       * @param {array} states - An array of states configuration
+       * @param {string} otherwisePath -
+       * The route definition that will be used on route change when no other route definition is matched.
+       */
       function addStates(states, otherwisePath) {
         states.forEach(function(state) {
           state.config.resolve = angular.extend(state.config.resolve || {}, _config.resolveAlways);
@@ -79,6 +130,16 @@
         }
       }
 
+      /**
+       * @method
+       * @memberOf blocks.router.routerHelper
+       * @name getStates
+       *
+       * @description
+       * Returns the states configuration.
+       *
+       * @returns {array}
+       */
       function getStates() {
         return $state.get();
       }

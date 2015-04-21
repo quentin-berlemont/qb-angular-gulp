@@ -3,15 +3,25 @@
 
   angular
     .module('app.sandbox')
-    .run(statesConfig);
+    .run(configureStates);
 
-  statesConfig.$inject = ['routerHelper'];
+  configureStates.$inject = ['routerHelper'];
 
-  function statesConfig(routerHelper) {
-    routerHelper.addStates(getStates(), '/sandbox');
+  /**
+   * @function
+   * @memberOf app.sandbox
+   * @name configureStates
+   *
+   * @description
+   * Configure the sandbox states.
+   *
+   * @param {object} routerHelper - {@link blocks.router.routerHelper The `routerHelper` service}
+   */
+  function configureStates(routerHelper) {
+    routerHelper.addStates(_getStates(), '/sandbox');
   }
 
-  function getStates() {
+  function _getStates() {
     return [
       {
         state: 'sandbox',
