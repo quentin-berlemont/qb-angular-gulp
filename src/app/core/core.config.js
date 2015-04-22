@@ -13,7 +13,7 @@
    * @name configureRouter
    *
    * @description
-   * The router configuration block.
+   * Configure the router.
    *
    * @param {object} $locationProvider - The angular `$location` provider
    * @param {object} routerHelperProvider - {@link blocks.router.routerHelperProvider The `routerHelper` provider}

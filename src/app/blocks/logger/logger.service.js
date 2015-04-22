@@ -8,16 +8,24 @@
   loggerFactory.$inject = ['$log'];
 
   /**
-   * @ngdoc Service
+   * @ngdoc Factory
    * @memberOf blocks.logger
-   * @name logger
+   * @name loggerFactory
    *
    * @description
-   * The logger service.
+   * Returns an instance of the `logger` service.
    *
    * @param {object} $log - The angular `$log` service
    */
   function loggerFactory($log) {
+    /**
+     * @ngdoc Service
+     * @memberOf blocks.logger
+     * @name logger
+     *
+     * @description
+     * The `logger` service.
+     */
     var service = {
       log: log,
       info: info,

@@ -3,21 +3,21 @@
 
   angular
     .module('blocks.exception')
-    .config(configureException);
+    .config(configureExceptionHandler);
 
-  configureException.$inject = ['$provide'];
+  configureExceptionHandler.$inject = ['$provide'];
 
   /**
    * @function
    * @memberOf blocks.exception
-   * @name configureException
+   * @name configureExceptionHandler
    *
    * @description
-   * The exception configuration block.
+   * Configure the exception handler.
    *
    * @param {object} $provide - The angular `$provide` service
    */
-  function configureException($provide) {
+  function configureExceptionHandler($provide) {
     $provide.decorator('$exceptionHandler', extendExceptionHandler);
   }
 
@@ -34,6 +34,8 @@
    *
    * @param {object} $delegate - The angular `$delegate` service
    * @param {object} logger - {@link blocks.logger.logger The `logger` service}
+   *
+   * @returns {callback}
    */
   function extendExceptionHandler($delegate, logger) {
     return function(exception, cause) {

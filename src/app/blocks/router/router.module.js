@@ -6,7 +6,7 @@
    * @name blocks.router
    *
    * @description
-   * The reusable router blocks.
+   * The reusable router module.
    */
   angular
     .module('blocks.router', [

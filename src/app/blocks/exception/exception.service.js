@@ -8,16 +8,26 @@
   exceptionFactory.$inject = ['logger'];
 
   /**
-   * @ngdoc Service
+   * @ngdoc Factory
    * @memberOf blocks.exception
-   * @name exception
+   * @name exceptionFactory
    *
    * @description
-   * The exception service exposes an interface to catch and gracefully handle exceptions.
+   * Returns an instance of the `exception` service.
    *
    * @param {object} logger - {@link blocks.logger.logger The `logger` service}
+   *
+   * @returns {object} - {@link blocks.exception.exception The `exception` service}
    */
   function exceptionFactory(logger) {
+    /**
+     * @ngdoc Service
+     * @memberOf blocks.exception
+     * @name exception
+     *
+     * @description
+     * The `exception` service exposes an interface to catch and gracefully handle exceptions.
+     */
     var service = {
       catcher: catcher
     };
@@ -38,6 +48,7 @@
      * from that service and react uniquely.
      *
      * @param {string} message - An error message
+     *
      * @returns {callback}
      */
     function catcher(message) {

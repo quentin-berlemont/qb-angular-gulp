@@ -6,7 +6,7 @@
    * @name blocks.exception
    *
    * @description
-   * The reusable exception blocks.
+   * The reusable exception module.
    */
   angular
     .module('blocks.exception', [

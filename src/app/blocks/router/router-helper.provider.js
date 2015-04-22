@@ -39,27 +39,37 @@
       angular.extend(_config, config);
     };
 
-    this.$get = routerHelper;
+    this.$get = routerHelperFactory;
 
-    routerHelper.$inject = ['$rootScope', '$state', '$location', 'logger'];
+    routerHelperFactory.$inject = ['$rootScope', '$state', '$location', 'logger'];
 
     /**
-     * @ngdoc Service
+     * @ngdoc Factory
      * @memberOf blocks.router
-     * @name routerHelper
+     * @name routerHelperFactory
      *
      * @description
-     * The `routerHelper` service.
+     * Returns an instance of the `routerHelper` service.
      *
      * @param {object} $rootScope - The angular `$rootScope` service
      * @param {object} $state - The angular `$state` service
      * @param {object} $location - The angular `$location` service
      * @param {object} logger - {@link blocks.logger.logger The `logger` service}
+     *
+     * @returns {object} - {@link blocks.router.routerHelper The `routerHelper` service}
      */
-    function routerHelper($rootScope, $state, $location, logger) {
+    function routerHelperFactory($rootScope, $state, $location, logger) {
       var _handlingStateChangeError = false;
       var _hasOtherwise = false;
 
+      /**
+       * @ngdoc Service
+       * @memberOf blocks.router
+       * @name routerHelper
+       *
+       * @description
+       * The `routerHelper` service.
+       */
       var service = {
         addStates: addStates,
         getStates: getStates
