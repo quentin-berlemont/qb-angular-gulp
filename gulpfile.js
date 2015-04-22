@@ -144,6 +144,10 @@
       .on('change', logWatch);
 
     gulp
+      .watch(config.path.translation.src + '**/locale-*.json', ['translationcache'])
+      .on('change', logWatch);
+
+    gulp
       .watch('./bower.json', ['vendor'])
       .on('change', logWatch);
 
@@ -158,7 +162,7 @@
   gulp.task('build', 'Run build', function(callback) {
     runSequence(
       ['test'],
-      ['images', 'css', 'js', 'templatecache', 'vendor'],
+      ['vendor', 'images', 'css', 'js', 'templatecache', 'translationcache'],
       ['index'],
       callback
     );
@@ -181,6 +185,41 @@
     options: {
       'tdd': 'Test-driven development'
     }
+  });
+
+  /**
+   * Bundle and minify dependencies
+   * @returns {stream}
+   */
+  gulp.task('vendor', 'Bundle and minify dependencies', function() {
+    return mergeStream(
+      gulp
+        .src(config.path.vendor.css.src)
+        .pipe(plug.newer(config.path.vendor.css.dist + 'vendor.min.css'))
+        .pipe(plug.sourcemaps.init())
+        .pipe(plug.concat('vendor.css'))
+        .pipe(gulp.dest(config.path.vendor.css.dist))
+        .pipe(plug.rename({suffix: '.min'}))
+        .pipe(plug.bytediff.start())
+        .pipe(plug.minifyCss())
+        .pipe(plug.bytediff.stop(bytediffFormatter))
+        .pipe(plug.sourcemaps.write('./'))
+        .pipe(gulp.dest(config.path.vendor.css.dist))
+        .pipe(browserSync.reload({ stream: true })),
+      gulp
+        .src(config.path.vendor.js.src)
+        .pipe(plug.newer(config.path.vendor.js.dist + 'vendor.min.js'))
+        .pipe(plug.sourcemaps.init())
+        .pipe(plug.concat('vendor.js'))
+        .pipe(gulp.dest(config.path.vendor.js.dist))
+        .pipe(plug.rename({suffix: '.min'}))
+        .pipe(plug.bytediff.start())
+        .pipe(plug.uglify())
+        .pipe(plug.bytediff.stop(bytediffFormatter))
+        .pipe(plug.sourcemaps.write('./'))
+        .pipe(gulp.dest(config.path.vendor.js.dist))
+        .pipe(browserSync.reload({ stream: true }))
+      );
   });
 
   /**
@@ -267,10 +306,10 @@
   });
 
   /**
-   * Bundle, minify and register HTML templates in the $templateCache
+   * Bundle, minify and register HTML templates in the $templateCache service
    * @returns {stream}
    */
-  gulp.task('templatecache', 'Bundle, minify and register HTML templates in the $templateCache', function() {
+  gulp.task('templatecache', 'Bundle, minify and register HTML templates in the $templateCache service', function() {
     return gulp
       .src(config.path.template.src + '**/*.html')
       .pipe(plug.newer(config.path.template.dist + 'templatecache.min.js'))
@@ -281,7 +320,7 @@
         standalone: false,
         root: 'app/'
       }))
-      .pipe(gulp.dest(config.path.js.dist))
+      .pipe(gulp.dest(config.path.template.dist))
       .pipe(plug.rename({suffix: '.min'}))
       .pipe(plug.bytediff.start())
       .pipe(plug.uglify())
@@ -292,38 +331,26 @@
   });
 
   /**
-   * Bundle and minify dependencies
+   * Bundle, minify and register translations in the $translate service
    * @returns {stream}
    */
-  gulp.task('vendor', 'Bundle and minify dependencies', function() {
-    return mergeStream(
-      gulp
-        .src(config.path.vendor.css.src)
-        .pipe(plug.newer(config.path.vendor.css.dist + 'vendor.min.css'))
-        .pipe(plug.sourcemaps.init())
-        .pipe(plug.concat('vendor.css'))
-        .pipe(gulp.dest(config.path.vendor.css.dist))
-        .pipe(plug.rename({suffix: '.min'}))
-        .pipe(plug.bytediff.start())
-        .pipe(plug.minifyCss())
-        .pipe(plug.bytediff.stop(bytediffFormatter))
-        .pipe(plug.sourcemaps.write('./'))
-        .pipe(gulp.dest(config.path.vendor.css.dist))
-        .pipe(browserSync.reload({ stream: true })),
-      gulp
-        .src(config.path.vendor.js.src)
-        .pipe(plug.newer(config.path.vendor.js.dist + 'vendor.min.js'))
-        .pipe(plug.sourcemaps.init())
-        .pipe(plug.concat('vendor.js'))
-        .pipe(gulp.dest(config.path.vendor.js.dist))
-        .pipe(plug.rename({suffix: '.min'}))
-        .pipe(plug.bytediff.start())
-        .pipe(plug.uglify())
-        .pipe(plug.bytediff.stop(bytediffFormatter))
-        .pipe(plug.sourcemaps.write('./'))
-        .pipe(gulp.dest(config.path.vendor.js.dist))
-        .pipe(browserSync.reload({ stream: true }))
-      );
+  gulp.task('translationcache', 'Bundle, minify and register translations in the $translate service', function() {
+    return gulp
+      .src(config.path.translation.src + '**/locale-*.json')
+      .pipe(plug.newer(config.path.translation.dist + 'translationcache.min.js'))
+      .pipe(plug.sourcemaps.init())
+      .pipe(plug.angularTranslate('translationcache.js', {
+        module: 'app.core',
+        standalone: false
+      }))
+      .pipe(gulp.dest(config.path.translation.dist))
+      .pipe(plug.rename({suffix: '.min'}))
+      .pipe(plug.bytediff.start())
+      .pipe(plug.uglify())
+      .pipe(plug.bytediff.stop(bytediffFormatter))
+      .pipe(plug.sourcemaps.write('./'))
+      .pipe(gulp.dest(config.path.translation.dist))
+      .pipe(browserSync.reload({ stream: true }));
   });
 
   /**
@@ -347,7 +374,8 @@
         gulp.src([
           'assets/js/vendor.min.js',
           'assets/js/app.min.js',
-          'assets/js/templatecache.min.js'
+          'assets/js/templatecache.min.js',
+          'assets/js/translationcache.min.js'
           ], {
             cwd: config.path.dist,
             read: false

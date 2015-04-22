@@ -16,8 +16,9 @@
       /* Cross-app modules */
       'blocks.exception',
       'blocks.logger',
-      'blocks.router'
+      'blocks.router',
 
       /* 3rd-party modules */
+      'pascalprecht.translate'
     ]);
 })();

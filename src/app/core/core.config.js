@@ -3,7 +3,8 @@
 
   angular
     .module('app.core')
-    .config(configureRouter);
+    .config(configureRouter)
+    .config(configureTranslater);
 
   configureRouter.$inject = ['$locationProvider', 'routerHelperProvider'];
 
@@ -24,5 +25,21 @@
     routerHelperProvider.configure({
       docTitle: 'Qb Angular Gulp - '
     });
+  }
+
+  configureTranslater.$inject = ['$translateProvider'];
+
+  /**
+   * @function
+   * @memberOf app.core
+   * @name configureTranslater
+   *
+   * @description
+   * Configure the translater.
+   *
+   * @param {object} $translateProvider - The angular `$translate` provider
+   */
+  function configureTranslater($translateProvider) {
+    $translateProvider.preferredLanguage('fr');
   }
 })();

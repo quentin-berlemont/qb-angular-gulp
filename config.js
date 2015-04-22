@@ -16,25 +16,6 @@
       docs: docsPath,
       test: testPath,
       coverage: coveragePath,
-      img: {
-        src: srcPath + 'assets/img/',
-        dist: distPath + 'assets/img/'
-      },
-      css: {
-        src: srcPath + 'assets/css/',
-        dist: distPath + 'assets/css/'
-      },
-      js: {
-        src: srcPath + 'app/',
-        dist: distPath + 'assets/js/'
-      },
-      template: {
-        src: srcPath + 'app/',
-        dist: distPath + 'assets/js/'
-      },
-      spec: {
-        src: testPath + 'spec/'
-      },
       vendor: {
         css: {
           src: bowerFiles.ext('css').files,
@@ -47,6 +28,29 @@
         jsDev: {
           src: bowerFiles.dev().ext('js').files
         }
+      },
+      img: {
+        src: srcPath + 'assets/img/',
+        dist: distPath + 'assets/img/'
+      },
+      css: {
+        src: srcPath + 'assets/css/',
+        dist: distPath + 'assets/css/'
+      },
+      js: {
+        src: srcPath + 'app/',
+        dist: distPath + 'assets/js/'
+      },
+      spec: {
+        src: testPath + 'spec/'
+      },
+      template: {
+        src: srcPath + 'app/',
+        dist: distPath + 'assets/js/'
+      },
+      translation: {
+        src: srcPath + 'app/',
+        dist: distPath + 'assets/js/'
       }
     }
   };
