@@ -49,7 +49,7 @@
      *
      * @param {string} message - An error message
      *
-     * @returns {callback}
+     * @returns {function}
      */
     function catcher(message) {
       return function(reason) {

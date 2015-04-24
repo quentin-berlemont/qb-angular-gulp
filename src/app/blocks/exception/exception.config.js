@@ -35,7 +35,7 @@
    * @param {object} $delegate - The angular `$delegate` service
    * @param {object} logger - {@link blocks.logger.logger The `logger` service}
    *
-   * @returns {callback}
+   * @returns {function}
    */
   function extendExceptionHandler($delegate, logger) {
     return function(exception, cause) {
