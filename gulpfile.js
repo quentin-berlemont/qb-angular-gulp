@@ -336,7 +336,7 @@
    */
   gulp.task('translationcache', 'Bundle, minify and register translations in the $translate service', function() {
     return gulp
-      .src(config.path.translation.src + '**/locale-*.json')
+      .src(config.path.translation.src + '**/i18n-*.json')
       .pipe(plug.newer(config.path.translation.dist + 'translationcache.min.js'))
       .pipe(plug.sourcemaps.init())
       .pipe(plug.angularTranslate('translationcache.js', {
