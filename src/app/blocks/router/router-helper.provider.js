@@ -31,7 +31,7 @@
      * @name configure
      *
      * @description
-     * Configure the `routerHelper` service.
+     * Configure {@link blocks.router.routerHelper the `routerHelper` service}.
      *
      * @param {object} config - The configuration object
      */
@@ -49,14 +49,14 @@
      * @name routerHelperFactory
      *
      * @description
-     * Returns an instance of the `routerHelper` service.
+     * Returns an instance of {@link blocks.router.routerHelper the `routerHelper` service}.
      *
      * @param {object} $rootScope - The angular `$rootScope` service
      * @param {object} $state - The angular `$state` service
      * @param {object} $location - The angular `$location` service
      * @param {object} logger - {@link blocks.logger.logger The `logger` service}
      *
-     * @returns {object} - {@link blocks.router.routerHelper The `routerHelper` service}
+     * @returns {object}
      */
     function routerHelperFactory($rootScope, $state, $location, logger) {
       var _handlingStateChangeError = false;

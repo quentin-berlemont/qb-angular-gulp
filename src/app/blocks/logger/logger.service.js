@@ -13,9 +13,11 @@
    * @name loggerFactory
    *
    * @description
-   * Returns an instance of the `logger` service.
+   * Returns an instance of {@link blocks.logger.logger the `logger` service}.
    *
    * @param {object} $log - The angular `$log` service
+   *
+   * @returns {object}
    */
   function loggerFactory($log) {
     /**

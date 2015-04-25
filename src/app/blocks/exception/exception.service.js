@@ -13,11 +13,11 @@
    * @name exceptionFactory
    *
    * @description
-   * Returns an instance of the `exception` service.
+   * Returns an instance of {@link blocks.exception.exception the `exception` service}.
    *
    * @param {object} logger - {@link blocks.logger.logger The `logger` service}
    *
-   * @returns {object} - {@link blocks.exception.exception The `exception` service}
+   * @returns {object}
    */
   function exceptionFactory(logger) {
     /**

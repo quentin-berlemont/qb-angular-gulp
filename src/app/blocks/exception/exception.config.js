@@ -29,8 +29,7 @@
    * @name extendExceptionHandler
    *
    * @description
-   * Decorate the `$exceptionHandler` service to handle uncaught Angular exceptions
-   * for development-time or run-time.
+   * Decorate the `$exceptionHandler` service to handle uncaught Angular exceptions.
    *
    * @param {object} $delegate - The angular `$delegate` service
    * @param {object} logger - {@link blocks.logger.logger The `logger` service}
