@@ -358,30 +358,20 @@
    * @returns {stream}
    */
   gulp.task('index', 'Inject all the files into the new index.html', function() {
+    var sources = [
+      config.path.vendor.css.dist + 'vendor.min.css',
+      config.path.css.dist + 'app.min.css',
+      config.path.vendor.js.dist + 'vendor.min.js',
+      config.path.js.dist + 'app.min.js',
+      config.path.js.dist + 'templatecache.min.js',
+      config.path.js.dist + 'translationcache.min.js'
+    ];
+
     return gulp
       .src(config.path.src + 'index.html')
-      .pipe(plug.inject(
-        gulp.src([
-            'assets/css/vendor.min.css',
-            'assets/css/app.min.css'
-          ], {
-            cwd: config.path.dist,
-            read: false
-          }
-        )
-      ))
-      .pipe(plug.inject(
-        gulp.src([
-          'assets/js/vendor.min.js',
-          'assets/js/app.min.js',
-          'assets/js/templatecache.min.js',
-          'assets/js/translationcache.min.js'
-          ], {
-            cwd: config.path.dist,
-            read: false
-          }
-        )
-      ))
+      .pipe(plug.inject(gulp.src(sources, { read: false }), {
+        ignorePath: config.path.dist
+      }))
       .pipe(plug.bytediff.start())
       .pipe(plug.minifyHtml())
       .pipe(plug.bytediff.stop(bytediffFormatter))

@@ -19,38 +19,38 @@
       vendor: {
         css: {
           src: bowerFiles.ext('css').files,
-          dist: distPath + 'assets/css/'
+          dist: distPath + 'assets/styles/'
         },
         js: {
           src: bowerFiles.ext('js').files,
-          dist: distPath + 'assets/js/'
+          dist: distPath + 'assets/scripts/'
         },
         jsDev: {
           src: bowerFiles.dev().ext('js').files
         }
       },
       img: {
-        src: srcPath + 'assets/img/',
-        dist: distPath + 'assets/img/'
+        src: srcPath + 'assets/images/',
+        dist: distPath + 'assets/images/'
       },
       css: {
-        src: srcPath + 'assets/css/',
-        dist: distPath + 'assets/css/'
+        src: srcPath + 'assets/styles/',
+        dist: distPath + 'assets/styles/'
       },
       js: {
         src: srcPath + 'app/',
-        dist: distPath + 'assets/js/'
+        dist: distPath + 'assets/scripts/'
       },
       spec: {
         src: testPath + 'spec/'
       },
       template: {
         src: srcPath + 'app/',
-        dist: distPath + 'assets/js/'
+        dist: distPath + 'assets/scripts/'
       },
       translation: {
         src: srcPath + 'app/',
-        dist: distPath + 'assets/js/'
+        dist: distPath + 'assets/scripts/'
       }
     }
   };
