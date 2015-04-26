@@ -23,7 +23,7 @@
     $locationProvider.html5Mode(true);
 
     routerHelperProvider.configure({
-      docTitle: 'Qb Angular Gulp - '
+      pageTitle: 'Qb Angular Gulp - '
     });
   }
 

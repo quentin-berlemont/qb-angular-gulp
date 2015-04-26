@@ -21,7 +21,7 @@
   function routerHelperProvider($stateProvider, $urlRouterProvider) {
     /* jshint validthis:true */
     var _config = {
-      docTitle: '',
+      pageTitle: '',
       resolveAlways: {}
     };
 
@@ -82,15 +82,15 @@
       ////////////////
 
       function _init() {
-        _updateDocTitle();
+        _updatePageTitle();
         _handleStateChangeError();
       }
 
-      function _updateDocTitle() {
+      function _updatePageTitle() {
         $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
           _handlingStateChangeError = false;
-          var title = _config.docTitle + (toState.title || '');
-          $rootScope.title = title;
+          var pageTitle = _config.pageTitle + (toState.data.pageTitle || '');
+          $rootScope.pageTitle = pageTitle;
         });
       }
 
@@ -104,7 +104,7 @@
           if (!_handlingStateChangeError) {
             _handlingStateChangeError = true;
 
-            var destination = (toState && (toState.title || toState.name || toState.loadedTemplateUrl))
+            var destination = (toState && (toState.data.pageTitle || toState.name || toState.loadedTemplateUrl))
                             || 'unknown target';
             var msg = 'Error routing to ' + destination + '. '
                     + (error.data || '') + '. <br/>'

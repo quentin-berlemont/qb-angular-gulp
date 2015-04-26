@@ -30,7 +30,9 @@
           templateUrl: 'app/sandbox/sandbox.html',
           controller: 'Sandbox',
           controllerAs: 'vm',
-          title: 'Sandbox'
+          data: {
+            pageTitle: 'Sandbox'
+          }
         }
       }
     ];
