@@ -1,8 +1,10 @@
-<md-toolbar class="md-toolbar-tools" layout-align="center">
-  <h2 translate>SANDBOX.PAGE_TITLE</h2>
+<md-toolbar layout="row" layout-align="center">
+  <div class="md-toolbar-tools">
+    <h2 translate>SANDBOX.PAGE_TITLE</h2>
+  </div>
 </md-toolbar>
 
-<md-content class="md-padding">
+<md-content layout-padding flex>
   <p>{{ vm.greeting }}</p>
   <p translate>SANDBOX.GREETING_MESSAGE</p>
 </md-content>

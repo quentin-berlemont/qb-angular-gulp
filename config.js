@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  var bowerFiles  = require('bower-files')();
+  var bowerFiles = require('bower-files')();
 
   var srcPath      = 'src/';
   var distPath     = 'dist/';
@@ -16,39 +16,39 @@
       docs: docsPath,
       test: testPath,
       coverage: coveragePath,
-      vendor: {
-        css: {
+      specs: {
+        src: testPath + 'specs/'
+      },
+      vendors: {
+        styles: {
           src: bowerFiles.ext('css').files,
           dist: distPath + 'assets/styles/'
         },
-        js: {
+        scripts: {
           src: bowerFiles.ext('js').files,
           dist: distPath + 'assets/scripts/'
         },
-        jsDev: {
+        scriptsDev: {
           src: bowerFiles.dev().ext('js').files
         }
       },
-      img: {
+      images: {
         src: srcPath + 'assets/images/',
         dist: distPath + 'assets/images/'
       },
-      css: {
+      styles: {
         src: srcPath + 'assets/styles/',
         dist: distPath + 'assets/styles/'
       },
-      js: {
+      scripts: {
         src: srcPath + 'app/',
         dist: distPath + 'assets/scripts/'
       },
-      spec: {
-        src: testPath + 'spec/'
-      },
-      template: {
+      templates: {
         src: srcPath + 'app/',
         dist: distPath + 'assets/scripts/'
       },
-      translation: {
+      translations: {
         src: srcPath + 'app/',
         dist: distPath + 'assets/scripts/'
       }
