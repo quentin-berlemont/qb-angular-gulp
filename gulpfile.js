@@ -263,7 +263,7 @@
   gulp.task('lint-styles', 'Lint styles.', function() {
     return gulp
       .src(config.path.styles.src)
-      .pipe(plug.newer(config.path.styles.dist + 'app.min.css'))
+      .pipe(plug.cached('lint-styles'))
       .pipe(plug.csslint())
       .pipe(plug.csslint.reporter());
   });
@@ -299,7 +299,7 @@
   gulp.task('lint-scripts', 'Lint scripts.', function() {
     return gulp
       .src(config.path.scripts.src + '**/*.js')
-      .pipe(plug.newer(config.path.scripts.dist + 'app.min.js'))
+      .pipe(plug.cached('lint-scripts'))
       .pipe(plug.jshint())
       .pipe(plug.jshint.reporter('jshint-stylish'))
       .pipe(plug.jshint.reporter('fail'))
