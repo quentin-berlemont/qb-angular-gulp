@@ -59,7 +59,7 @@
   });
 
   /**
-   * Generate the API documentation
+   * Generate the API documentation.
    *
    * @returns {stream}
    */
@@ -96,7 +96,7 @@
         baseDir: config.path.dist,
         middleware: [
           modRewrite([
-            '!\\.\\w+$ /index.html [L]'
+            '^[^\\.]*$ /index.html [L]'
           ])
         ]
       }
@@ -200,6 +200,7 @@
         .pipe(plug.bytediff.stop(bytediffFormatter))
         .pipe(plug.sourcemaps.write('./'))
         .pipe(gulp.dest(config.path.vendors.styles.dist))
+        .pipe(plug.filter('vendors.min.css'))
         .pipe(browserSync.reload({ stream: true })),
       gulp
         .src(config.path.vendors.scripts.src)
@@ -229,7 +230,8 @@
       .pipe(plug.bytediff.start())
       .pipe(plug.imagemin({optimizationLevel: 4}))
       .pipe(plug.bytediff.stop(bytediffFormatter))
-      .pipe(gulp.dest(config.path.images.dist));
+      .pipe(gulp.dest(config.path.images.dist))
+      .pipe(browserSync.reload({ stream: true }));
   });
 
   /**
@@ -252,6 +254,7 @@
       .pipe(plug.bytediff.stop(bytediffFormatter))
       .pipe(plug.sourcemaps.write('./'))
       .pipe(gulp.dest(config.path.styles.dist))
+      .pipe(plug.filter('app.min.css'))
       .pipe(browserSync.reload({ stream: true }));
   });
 
