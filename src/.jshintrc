@@ -1,6 +1,10 @@
 {
   "extends": "../.jshintrc-base",
   "globals": {
-    "angular": false
-  }
+    "angular": false,
+	"inject": false,
+	"module": false
+  },
+   "jasmine": true,
+   "node": false
 }

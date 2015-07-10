@@ -9,9 +9,5 @@
     beforeEach(inject(function($controller) {
       controller = $controller('Sandbox');
     }));
-
-    it('should say "Hello World!"', function() {
-      expect(controller.greeting).toBe('Hello World!');
-    });
   });
 })();

@@ -1,35 +1,25 @@
-(function() {
-  'use strict';
+var bowerFiles = require('bower-files')();
+var config = require('./gulp/config');
 
-  var config       = require('./config');
-  var coveragePath = config.path.coverage;
+var files = []
+  .concat(bowerFiles.dev().ext('js').files)
+  .concat([config.sourceDir + '/app/**/*.module.js', config.sourceDir + '/app/**/*.js']);
+var preprocessors = {};
+preprocessors[config.sourceDir + '/app/**/*.js'] = 'coverage';
 
-  var files = []
-    .concat(config.path.vendors.scriptsDev.src)
-    .concat([
-      config.path.scripts.src + '**/*.module.js',
-      config.path.scripts.src + '**/*.js',
-      config.path.specs.src + '**/*.spec.js'
-    ]);
-
-  var preprocessors = {};
-  preprocessors[config.path.scripts.src + '**/*.js'] = 'coverage';
-
-  module.exports = function(config) {
-    config.set({
-      files: files,
-      browsers: ['PhantomJS'],
-      frameworks: ['jasmine'],
-      preprocessors: preprocessors,
-      reporters: ['progress', 'coverage', 'html'],
-      coverageReporter: {
-        dir: coveragePath,
-        reporters: [
-          { type: 'html', subdir: 'report-html' },
-          { type: 'lcov', subdir: 'report-lcov' }
-        ]
-      },
-      singleRun: true
-    });
-  };
-})();
+module.exports = function(config) {
+  config.set({
+    files: files,
+    browsers: ['PhantomJS'],
+    frameworks: ['jasmine'],
+    preprocessors: preprocessors,
+    reporters: ['progress', 'coverage', 'html'],
+    coverageReporter: {
+      dir: config.coverageDir,
+      reporters: [
+        { type: 'html', subdir: 'report-html' },
+        { type: 'lcov', subdir: 'report-lcov' }
+      ]
+    }
+  });
+};

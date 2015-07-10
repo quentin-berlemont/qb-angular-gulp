@@ -89,7 +89,7 @@
       function _updatePageTitle() {
         $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
           _handlingStateChangeError = false;
-          var pageTitle = _config.pageTitle + (toState.data.pageTitle || '');
+          var pageTitle = toState.data.pageTitle || _config.pageTitle;
           $rootScope.pageTitle = pageTitle;
         });
       }
@@ -126,7 +126,7 @@
        *
        * @param {array} states - An array of states configuration
        * @param {string} otherwisePath -
-       * The route definition that will be used on route change when no other route definition is matched.
+       * The route definition that will be used on route change when no other route definition is matched
        */
       function addStates(states, otherwisePath) {
         states.forEach(function(state) {

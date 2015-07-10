@@ -31,7 +31,7 @@
           controller: 'Sandbox',
           controllerAs: 'vm',
           data: {
-            pageTitle: 'Sandbox'
+            pageTitle: 'SANDBOX.PAGE_TITLE'
           }
         }
       }
