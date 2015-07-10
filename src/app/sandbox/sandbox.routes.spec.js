@@ -2,20 +2,15 @@
   'use strict';
 
   describe('Sandbox routes', function() {
-    var $rootScope, $state, $templateCache;
+    var $rootScope, $state;
 
-    beforeEach(module('app.sandbox'));
+    beforeEach(module('app.sandbox', 'templateCache'));
 
-    beforeEach(inject(function(_$rootScope_, _$state_, _$templateCache_) {
+    beforeEach(inject(function(_$rootScope_, _$state_) {
       // The injector unwraps the underscores (_) from around the parameter names when matching
-      $rootScope     = _$rootScope_;
-      $state         = _$state_;
-      $templateCache = _$templateCache_;
+      $rootScope = _$rootScope_;
+      $state = _$state_;
     }));
-
-    beforeEach(function() {
-      $templateCache.put('app/sandbox/sandbox.html', '');
-    });
 
     it('should map state sandbox to url /sandbox', function() {
       expect($state.href('sandbox', {})).toEqual('/sandbox');
