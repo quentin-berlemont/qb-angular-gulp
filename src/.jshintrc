@@ -3,7 +3,7 @@
   "globals": {
     "angular": false,
     "inject": false,
-  	"module": false
+    "module": false
   },
    "jasmine": true,
    "node": false

@@ -18,8 +18,8 @@
   function listPreprocessors() {
     var preprocessors = {};
 
-    preprocessors['src/app/**/*.html'] = ['ng-html2js'];
-    preprocessors['src/app/**/*.js'] = ['coverage'];
+    preprocessors[config.sourceDir + 'app/**/*.html'] = ['ng-html2js'];
+    preprocessors[config.sourceDir + 'app/**/!(*.spec|*.mock).js'] = ['coverage'];
 
     return preprocessors;
   }
