@@ -1,1 +1,5 @@
-exports.dependencies = ['serve'];
+(function() {
+  'use strict';
+
+  exports.dependencies = ['serve'];
+})();

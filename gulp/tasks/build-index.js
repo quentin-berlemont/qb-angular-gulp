@@ -1,20 +1,24 @@
-var gulp = require('gulp');
-var plug = require('gulp-load-plugins')();
+(function() {
+  'use strict';
 
-var path = require('path');
-var config = require('../config');
+  var gulp = require('gulp');
+  var plug = require('gulp-load-plugins')();
 
-exports.task = function() {
-  var sources = [
-    config.outputDir + 'vendors.*',
-    config.outputDir + 'app.*',
-    config.outputDir + 'templates.*',
-    config.outputDir + 'translations.*'
-  ];
+  var path = require('path');
+  var config = require('../config');
 
-  return gulp.src(path.join(config.sourceDir, 'index.html'))
-    .pipe(plug.inject(gulp.src(sources, { read: false }), {
-      ignorePath: config.outputDir
-    }))
-    .pipe(gulp.dest(config.outputDir));
-};
+  exports.task = function() {
+    var sources = [
+      config.outputDir + 'vendors.*',
+      config.outputDir + 'app.*',
+      config.outputDir + 'templates.*',
+      config.outputDir + 'translations.*'
+    ];
+
+    return gulp.src(path.join(config.sourceDir, 'index.html'))
+      .pipe(plug.inject(gulp.src(sources, { read: false }), {
+        ignorePath: config.outputDir
+      }))
+      .pipe(gulp.dest(config.outputDir));
+  };
+})();

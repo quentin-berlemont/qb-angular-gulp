@@ -1,51 +1,60 @@
-'use strict';
+(function() {
+  'use strict';
 
-var bowerFiles = require('bower-files')();
+  var bowerFiles = require('bower-files')();
+  var config = require('./gulp/config');
 
-function listFiles() {
-  var files = []
-    .concat(bowerFiles.dev().ext('js').files)
-    .concat([
-      'src/app/**/*.html',
-      'src/app/**/*.js',
-    ]);
+  function listFiles() {
+    var files = []
+      .concat(bowerFiles.dev().ext('js').files)
+      .concat([
+        config.sourceDir + 'app/**/*.html',
+        config.sourceDir + 'app/**/*.js',
+      ]);
 
-  return files;
-}
+    return files;
+  }
 
-module.exports = function(config) {
-  config.set({
-    files: listFiles(),
+  function listPreprocessors() {
+    var preprocessors = {};
 
-    browsers: ['PhantomJS'],
+    preprocessors['src/app/**/*.html'] = ['ng-html2js'];
+    preprocessors['src/app/**/*.js'] = ['coverage'];
 
-    frameworks: ['jasmine', 'angular-filesort'],
+    return preprocessors;
+  }
 
-    preprocessors: {
-      'src/app/**/*.html': ['ng-html2js'],
-      'src/app/**/*.js': ['coverage']
-	},
+  module.exports = function(karmaConfig) {
+    karmaConfig.set({
+      files: listFiles(),
 
-    ngHtml2JsPreprocessor: {
-      stripPrefix: 'src/',
-      moduleName: 'templateCache'
-    },
+      browsers: ['PhantomJS'],
 
-	angularFilesort: {
-      whitelist: [
-        'src/app/**/!(*.html)',
-        'src/app/**/!(*.spec|*.mock).js'
-      ]
-    },
+      frameworks: ['jasmine', 'angular-filesort'],
 
-    reporters: ['progress', 'coverage', 'html'],
+      preprocessors: listPreprocessors(),
 
-    coverageReporter: {
-      dir: 'coverage/',
-      reporters: [
-        { type: 'html', subdir: 'report-html' },
-        { type: 'lcov', subdir: 'report-lcov' }
-      ]
-    }
-  });
-};
+      ngHtml2JsPreprocessor: {
+        stripPrefix: config.sourceDir,
+        moduleName: 'templateCache'
+      },
+
+      angularFilesort: {
+        whitelist: [
+          config.sourceDir + 'app/**/!*.html',
+          config.sourceDir + 'app/**/!(*.spec|*.mock).js'
+        ]
+      },
+
+      reporters: ['progress', 'coverage', 'html'],
+
+      coverageReporter: {
+        dir: config.coverageDir,
+        reporters: [
+          { type: 'html', subdir: 'report-html' },
+          { type: 'lcov', subdir: 'report-lcov' }
+        ]
+      }
+    });
+  };
+})();

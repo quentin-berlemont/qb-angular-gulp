@@ -1,21 +1,26 @@
-var gulp = require('gulp');
-var plug = require('gulp-load-plugins')();
+(function() {
+  'use strict';
 
-var constants = require('../constants');
-var ROOT = constants.ROOT;
-var util = require('../utils');
-var args = util.args;
+  var gulp = require('gulp');
+  var plug = require('gulp-load-plugins')();
 
-exports.task = function() {
-  var options = {};
+  var path = require('path');
+  var constants = require('../constants');
+  var ROOT = constants.ROOT;
+  var util = require('../utils');
+  var args = util.args;
 
-  if (args.version) {
-    options.version = args.version;
-  } else {
-    options.type = args.type;
-  }
+  exports.task = function() {
+    var options = {};
 
-  return gulp.src([path.join(ROOT, 'bower.json'), path.join(ROOT, 'package.json')])
-    .pipe(plug.bump(options))
-    .pipe(gulp.dest(ROOT));
-};
+    if (args.version) {
+      options.version = args.version;
+    } else {
+      options.type = args.type;
+    }
+
+    return gulp.src([path.join(ROOT, 'bower.json'), path.join(ROOT, 'package.json')])
+      .pipe(plug.bump(options))
+      .pipe(gulp.dest(ROOT));
+  };
+})();

@@ -1,8 +1,12 @@
-var gulp = require('gulp');
-var shell = require('gulp-shell');
+(function() {
+  'use strict';
 
-var config = require('../config');
+  var gulp = require('gulp');
+  var shell = require('gulp-shell');
 
-exports.task = shell.task([
-  'jsdoc -c node_modules/angular-jsdoc/conf.json -t node_modules/angular-jsdoc/template -d ' + config.docsDir + ' -r ' + config.sourceDir
-]);
+  var config = require('../config');
+
+  exports.task = shell.task([
+    'jsdoc -c node_modules/angular-jsdoc/conf.json -t node_modules/angular-jsdoc/template -d ' + config.docsDir + ' -r ' + config.sourceDir
+  ]);
+})();

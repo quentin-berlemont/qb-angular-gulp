@@ -1,12 +1,16 @@
-var gulp = require('gulp');
-var plug = require('gulp-load-plugins')();
+(function() {
+  'use strict';
 
-var config = require('../config');
+  var gulp = require('gulp');
+  var plug = require('gulp-load-plugins')();
 
-exports.task = function() {
-  return gulp.src([config.sourceDir + 'app/**/*.js', '!' + config.sourceDir + 'app/**/*.spec.js'])
-    .pipe(plug.jshint())
-    .pipe(plug.jshint.reporter('jshint-stylish'))
-    .pipe(plug.jshint.reporter('fail'))
-    .pipe(plug.jscs());
-};
+  var config = require('../config');
+
+  exports.task = function() {
+    return gulp.src(config.sourceDir + 'app/**/!(*.spec|*.mock).js')
+      .pipe(plug.jshint())
+      .pipe(plug.jshint.reporter('jshint-stylish'))
+      .pipe(plug.jshint.reporter('fail'))
+      .pipe(plug.jscs());
+  };
+})();

@@ -16,7 +16,7 @@
       expect($state.href('sandbox', {})).toEqual('/sandbox');
     });
 
-    it('should map /sandbox route to sandbox view template', function () {
+    it('should map /sandbox route to sandbox view template', function() {
       expect($state.get('sandbox').templateUrl).toEqual('app/sandbox/sandbox.html');
     });
 
