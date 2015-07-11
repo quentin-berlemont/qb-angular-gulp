@@ -8,6 +8,7 @@
 
   exports.task = function() {
     return gulp.src(config.sourceDir + 'app/**/!(*.spec|*.mock).js')
+      .pipe(plug.cached('lint-js'))
       .pipe(plug.jshint())
       .pipe(plug.jshint.reporter('jshint-stylish'))
       .pipe(plug.jshint.reporter('fail'))

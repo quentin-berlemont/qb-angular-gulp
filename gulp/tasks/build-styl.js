@@ -9,6 +9,8 @@
   var constants = require('../constants');
   var IS_DEV = constants.IS_DEV;
 
+  exports.dependencies = ['lint-styl'];
+
   exports.task = function() {
     return gulp.src(config.sourceDir + 'app/**/*.styl')
       .pipe(plug.sourcemaps.init())
