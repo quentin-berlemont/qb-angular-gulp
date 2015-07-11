@@ -9,6 +9,7 @@
 
   exports.task = function(done) {
     browserSync({
+      files: config.outputDir + '**/*',
       server: {
         baseDir: config.outputDir,
         middleware: [
