@@ -7,8 +7,8 @@
   var path = require('path');
   var constants = require('../constants');
   var ROOT = constants.ROOT;
-  var util = require('../utils');
-  var args = util.args;
+  var utils = require('../utils');
+  var args = utils.args;
 
   exports.task = function() {
     var options = {};
